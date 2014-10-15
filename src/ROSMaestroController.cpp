@@ -61,8 +61,10 @@ void ROSMaestroController::jointCallback(const sensor_msgs::JointState::ConstPtr
     int length = write_joint->name.size();
     for (int i = 0; i < length; ++i) {
         string name = write_joint->name[i];
+        //ROS_INFO("-> Servo: %s",name.c_str());
         if (servo.find(name) != servo.end()) {
             int channel = servo[name];
+						//ROS_INFO("-> Servo: %s - Ch:%d",name.c_str(), channel);
             maestroSetAngle(channel, write_joint->position[i]);
         }
     }

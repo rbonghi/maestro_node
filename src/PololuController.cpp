@@ -38,6 +38,7 @@ void PololuController::maestroSetTarget(int channel, double target) {
     lock_guard<mutex> l(pololuMutex);
     vector<char> list;
     int convert_target = target * (MAX_VALUE / ((double) MAX_VALUE_PULSE));
+    //cout << "Ch: " << channel << " - val: " << convert_target << endl;
     list.push_back(0x84); // Command byte: Set Target.
     list.push_back(channel); // First data byte holds channel number.
     list.push_back(convert_target & 0x7F); // Second byte holds the lower 7 bits of target.
@@ -47,6 +48,7 @@ void PololuController::maestroSetTarget(int channel, double target) {
 
 double PololuController::maestroGetTarget(int channel) {
     lock_guard<mutex> l(pololuMutex);
+    //cout << "Ch: " << channel << endl;
     vector<char> list;
     list.push_back(0x90); // Command byte: Set Target.
     list.push_back(channel); // First data byte holds channel number.
